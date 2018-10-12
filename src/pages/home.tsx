@@ -1,5 +1,18 @@
+import { rehydrate } from "glamor";
+import glamorous from "glamorous";
 import * as React from "react";
 import { Link } from "../lib/routes";
+
+// Adds server generated styles to glamor cache.
+// Has to run before any `style()` calls
+// '__NEXT_DATA__.ids' is set in '_document.js'
+if (typeof window !== "undefined") {
+  rehydrate((window as any).__NEXT_DATA__.ids);
+}
+
+const Main = glamorous.div({
+  padding: 50
+});
 
 export default class extends React.Component {
   // private static getInitialProps() {
@@ -17,7 +30,7 @@ export default class extends React.Component {
 
   public render() {
     return (
-      <div className="main">
+      <Main>
         <h2>Home page</h2>
         <ul>
           <li>
@@ -31,12 +44,7 @@ export default class extends React.Component {
             </Link>
           </li>
         </ul>
-        <style jsx>{`
-          .main {
-            padding: 50px;
-          }
-        `}</style>
-      </div>
+      </Main>
     );
   }
 }

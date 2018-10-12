@@ -1,14 +1,5 @@
-// const withTypescript = require("@zeit/next-typescript");
-
-// next.config.js
-// const withPlugins = require("next-compose-plugins");
-// const typescript = require("@zeit/next-typescript");
-
 // next.js configuration
 const nextConfig = {
-  // buildDir: "dist",
-  // pageExtensions: ["tsx", "ts"],
-  // useFileSystemPublicRoutes: false,
   // https://nextjs.org/docs/#exposing-configuration-to-the-server--client-side
   // Settings that are only exposed on the server-side
   serverRuntimeConfig: {
@@ -16,7 +7,7 @@ const nextConfig = {
   },
   // Settings that are accessible on both client and server
   publicRuntimeConfig: {},
-  webpack: (config, { buildId, dev, isServer, defaultLoaders }) => {
+  webpack: (config, { isServer }) => {
     // Perform customizations to webpack config
     // Important: return the modified config
     if (!config.resolve) {
@@ -29,8 +20,6 @@ const nextConfig = {
         "../lib/api": "../server/api"
       };
     }
-
-    // console.log(defaultLoaders);
 
     return config;
   }

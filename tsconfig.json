@@ -5,7 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "es2017"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -18,8 +18,8 @@
     "noImplicitAny": false
   },
   "include": [
+    "src/next.config.js",
     "src/**/*.ts",
-    "next.config.js",
     "src/**/*.tsx"
   ]
 }

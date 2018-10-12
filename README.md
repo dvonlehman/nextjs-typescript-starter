@@ -14,3 +14,4 @@ This is a prototype of a new Steller web player built using [next.js](https://ne
 
 - [nextgram](https://github.com/now-examples/nextgram) - sample app that has the same basic navigation pattern as Steller.
 - [SSR and Server Only Modules](https://arunoda.me/blog/ssr-and-server-only-modules)
+- [Using Glamorous with Next](https://github.com/zeit/next.js/blob/master/examples/with-glamorous/pages/_document.js)

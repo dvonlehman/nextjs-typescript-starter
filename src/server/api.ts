@@ -1,8 +1,8 @@
-import fetch from "node-fetch";
-import { IStory, IApi, IGroupLayer, IStoryLayer } from "../lib/interfaces";
+import * as camelCaseKeys from "camelcase-keys";
 import * as httpError from "http-errors";
 import getConfig from "next/config";
-import * as camelCaseKeys from "camelcase-keys";
+import fetch from "node-fetch";
+import { IApi, IGroupLayer, IStory, IStoryLayer } from "../lib/interfaces";
 
 let API_URL;
 
@@ -23,10 +23,10 @@ function transformStory(rawJson: object): IStory {
   const story = camelCaseKeys(rawJson) as IStory;
 
   // Sort the layers by id
-  for (let page of story.pages) {
+  for (const page of story.pages) {
     page.layers.sort(sortByLayerId);
 
-    for (let layer of page.layers) {
+    for (const layer of page.layers) {
       if (layer.type === "group") {
         (layer as IGroupLayer).layers.sort(sortByLayerId);
       }

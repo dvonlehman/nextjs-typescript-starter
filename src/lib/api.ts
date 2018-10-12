@@ -22,7 +22,7 @@ async function getStoryById(storyId: string): Promise<IStory> {
 async function getStoryByShortId(shortId: string): Promise<IStory> {
   console.log("Fetch story", shortId);
   const url = `/api/stories?short_id=${shortId}`;
-  const resp = await fetch(`/api/stories?short_id=${shortId}`);
+  const resp = await window.fetch(`/api/stories?short_id=${shortId}`);
   if (!resp.ok) {
     throw new Error(`API returned status ${resp.status} for ${url}`);
   }
