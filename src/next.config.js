@@ -21,6 +21,14 @@ const nextConfig = {
       };
     }
 
+    // Configure webpack to use the typescript generated sourcemaps
+    // so we can debug the original tsx files in devtools
+    config.module.rules.push({
+      test: /\.js$/,
+      use: ["source-map-loader"],
+      enforce: "pre"
+    });
+
     return config;
   }
 };
