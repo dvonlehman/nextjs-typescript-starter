@@ -71,3 +71,12 @@ export interface IApi {
   getStoryById: (storyId: string) => Promise<IStory>;
   getStoryByShortId: (storyId: string) => Promise<IStory>;
 }
+
+type LoggerMethod = (message: string, meta?: any) => void;
+
+export interface ILogger {
+  error: LoggerMethod;
+  warn: LoggerMethod;
+  info: LoggerMethod;
+  debug: LoggerMethod;
+}

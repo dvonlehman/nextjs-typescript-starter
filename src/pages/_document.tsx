@@ -28,7 +28,6 @@ class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>With Glamorous</title>
           <style
             dangerouslySetInnerHTML={{ __html: (this.props as any).css }}
           />

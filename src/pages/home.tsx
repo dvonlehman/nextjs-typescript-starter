@@ -1,5 +1,6 @@
 import { rehydrate } from "glamor";
 import glamorous from "glamorous";
+import Head from "next/head";
 import * as React from "react";
 import { Link } from "../lib/routes";
 
@@ -23,14 +24,13 @@ export default class extends React.Component {
     super(props);
   }
 
-  // handling escape close
-  public componentDidMount() {}
-
-  public componentWillUnmount() {}
-
   public render() {
     return (
       <Main>
+        <Head>
+          <title key="title">steller.co</title>
+          <link rel="canonical" key="canonical" href="https://steller.co" />
+        </Head>
         <h2>Home page</h2>
         <ul>
           <li>

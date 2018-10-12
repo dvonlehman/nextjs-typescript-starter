@@ -1,4 +1,5 @@
 import { IApi, IStory } from "./interfaces";
+import log from "./logger";
 
 // This is the client IApi implementation. The webpack config substitutes
 // this module with server/api.ts for the server bundle build.
@@ -20,7 +21,7 @@ async function getStoryById(storyId: string): Promise<IStory> {
 
 // https://api.steller.co/v1/stories?short_id=6rSKfzvTJf2
 async function getStoryByShortId(shortId: string): Promise<IStory> {
-  console.log("Fetch story", shortId);
+  log.debug("Fetch story", shortId);
   const url = `/api/stories?short_id=${shortId}`;
   const resp = await window.fetch(`/api/stories?short_id=${shortId}`);
   if (!resp.ok) {
