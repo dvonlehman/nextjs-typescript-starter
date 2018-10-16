@@ -10,6 +10,49 @@ export interface IStory {
   readonly landscapeShareImage: string;
   readonly pages: IStoryPage[];
   readonly title: string;
+  readonly user: IUser;
+  readonly snippet: {
+    text: string;
+    entities: {
+      hashtags: Array<{
+        hashtag: string;
+        indices: number[];
+      }>;
+    };
+  };
+  collectionCount: number;
+  commentCount: number;
+  commentingEnabled: boolean;
+  revision: number;
+  coverSrc320x480: string;
+  coverSrc160x240: string;
+  likes: {
+    count: number;
+    currentUser: boolean;
+  };
+  createdAt: number;
+  updatedAt: number;
+  private: boolean;
+}
+
+export interface IUser {
+  id: string;
+  revision: number;
+  displayName: string;
+  avatarImageUrl: string;
+  avatarImageBg: string;
+  headerImageBg: string;
+  followers: number;
+  following: number;
+  explicitlyFollowed: boolean;
+  implicitlyFollowed: boolean;
+  followsYou: boolean;
+  blocked: boolean;
+  stories: number;
+  followRequestSent: boolean;
+  followRequestReceived: boolean;
+  _username: string;
+  private: boolean;
 }
 
 export interface IStoryPage {

@@ -3,8 +3,8 @@ const camelCaseKeys = require("camelcase-keys"); // tslint:disable-line
 
 import * as config from "config";
 import * as httpError from "http-errors";
+import { IApi, IGroupLayer, IStory, IStoryLayer } from "lib/interfaces";
 import fetch from "node-fetch";
-import { IApi, IGroupLayer, IStory, IStoryLayer } from "../lib/interfaces";
 import log from "./logger";
 
 const API_URL = config.get("serverRuntimeConfig.printApiUrl");
@@ -34,7 +34,7 @@ function transformStory(rawJson: object): IStory {
 
 async function getStoryById(storyId: string): Promise<IStory> {
   const url = `${API_URL}/stories/${storyId}`;
-  log.debug("Fetching", url);
+  log.debug("Fetching", { url });
 
   const resp = await fetch(url);
   if (!resp.ok) {
@@ -49,7 +49,7 @@ async function getStoryById(storyId: string): Promise<IStory> {
 
 async function getStoryByShortId(shortId: string): Promise<IStory> {
   const url = `${API_URL}/stories?short_id=${shortId}`;
-  log.debug("Fetching", url);
+  log.debug("Fetching", { url });
 
   const resp = await fetch(url);
   if (!resp.ok) {

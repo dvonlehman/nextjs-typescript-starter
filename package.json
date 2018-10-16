@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "rm -rf build && tsc && concurrently \"(cd build; NODE_PATH=./ nodemon --watch server.js --watch server --watch config server.js)\" \"tsc --watch\"",
+    "dev": "rm -rf build && tsc && concurrently \"(cd build; NODE_PATH=./ NODE_ENV=development nodemon --watch server.js --watch server --watch config server.js)\" \"tsc --watch\"",
     "build": "rm -rf build && tsc && (cd build; next build)",
-    "start": "(cd build; NODE_ENV=production node server.js)"
+    "start": "(cd build; NODE_PATH=./ NODE_ENV=production node server.js)"
   },
   "author": "",
   "license": "ISC",

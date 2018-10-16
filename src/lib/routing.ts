@@ -1,5 +1,5 @@
+import { IStory } from "lib/interfaces";
 import { DefaultQuery, WithRouterProps } from "next/router";
-import { IStory } from "./interfaces";
 
 export interface IStoryPageQuery extends DefaultQuery {
   readonly storyId: string;

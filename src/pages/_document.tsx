@@ -46,6 +46,10 @@ class StellerDocument extends Document<DocumentProps> {
             dangerouslySetInnerHTML={{ __html: (this.props as any).css }}
           />
           <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, user-scalable=no"
+          />
+          <meta
             id="deviceFamily"
             name="device-family"
             content={this.props.deviceFamily}

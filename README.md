@@ -23,3 +23,20 @@ We effectively have a two step build process, first
 - [nextgram](https://github.com/now-examples/nextgram) - sample app that has the same basic navigation pattern as Steller.
 - [SSR and Server Only Modules](https://arunoda.me/blog/ssr-and-server-only-modules)
 - [Using Glamorous with Next](https://github.com/zeit/next.js/blob/master/examples/with-glamorous/pages/_document.js)
+
+### Module Resolution
+
+Webpack aliases are used to substitute a different module implementation on the server side. For example, the `lib/api` used on the client is aliased to `server/api` for the server webpack bundle. Because `lib/api` could be imported from different levels in the directory structure, we want to have one standard absolute path that is valid everywhere. Three steps need to be taken to accomplish this:
+
+1. In the `tsconfig.json` the `baseUrl` is set to `src`
+2. In the `next.config.js` webpack customization, the following global aliases are set:
+
+```js
+Object.assign(config.resolve.alias, {
+  components: __dirname + "/components",
+  lib: __dirname + "/lib"
+});
+```
+
+3. Everywhere in code, import from components, lib and server using absolute paths rather than relative. I.e. `lib/urls` _NOT_ `../../lib/urls`.
+4. Set the `NODE_PATH=./` environment variable in the package.json `start` and `dev` scripts. See [https://lostechies.com/derickbailey/2014/02/20/how-i-work-around-the-require-problem-in-nodejs/](this blog post) for more details.

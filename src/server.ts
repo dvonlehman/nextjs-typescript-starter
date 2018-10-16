@@ -6,9 +6,9 @@ import * as express from "express";
 import * as next from "next";
 import apiRouter from "server/api-router";
 import deviceDetect from "server/device-detect";
+import requestHandler from "server/request-handler";
 import * as nextConfig from "./next.config";
 import log from "./server/logger";
-import requestHandler from "server/request-handler";
 
 const port = parseInt(process.env.PORT || "9000", 10);
 const dev = process.env.NODE_ENV !== "production";

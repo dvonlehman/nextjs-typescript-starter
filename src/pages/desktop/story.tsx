@@ -1,7 +1,7 @@
 import Link from "components/link";
+import StoryPageHead from "components/story-page-head";
 import api from "lib/api";
 import { IStoryProps } from "lib/routing";
-import Head from "next/head";
 import { withRouter } from "next/router";
 import * as React from "react";
 
@@ -20,14 +20,7 @@ class StoryPage extends React.Component<IStoryProps> {
   render() {
     return (
       <div className="main">
-        <Head>
-          <title key="title">Story {this.props.storyId} - steller.co</title>
-          <link
-            rel="canonical"
-            key="canonical"
-            href={`https://steller.co/s/${this.props.storyId}`}
-          />
-        </Head>
+        <StoryPageHead story={this.props.story} />
         <div>
           <Link href="/home" as="/">
             <a>Back to home</a>
