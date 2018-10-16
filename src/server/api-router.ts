@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { ICompactStory } from "lib/interfaces";
 import api from "./api";
 
 const router = Router();
@@ -14,6 +15,19 @@ router.get(
     }
 
     res.json(story);
+  }
+);
+
+router.get(
+  "/stories/featured",
+  async ({}, res: Response, next: NextFunction) => {
+    let featuredStories: ICompactStory[];
+    try {
+      featuredStories = await api.getFeaturedStories();
+    } catch (err) {
+      return next(err);
+    }
+    res.json(featuredStories);
   }
 );
 

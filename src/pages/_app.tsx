@@ -1,6 +1,5 @@
-import App, { Container, DefaultAppIProps, NextAppContext } from "next/app";
 import { rehydrate } from "glamor";
-
+import App, { Container, DefaultAppIProps, NextAppContext } from "next/app";
 import * as React from "react";
 
 // Adds server generated styles to glamor cache.

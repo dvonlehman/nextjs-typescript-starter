@@ -1,6 +1,7 @@
 import HomePageHead from "components/home-page-head";
 import Link from "components/link";
 import glamorous from "glamorous";
+import api from "lib/api";
 import { StellerAppPageProps } from "lib/interfaces";
 import * as React from "react";
 
@@ -9,9 +10,11 @@ const Main = glamorous.div({
 });
 
 export default class extends React.Component<StellerAppPageProps> {
-  // private static getInitialProps() {
-  //   return {};
-  // }
+  static async getInitialProps() {
+    return {
+      featuredStories: await api.getFeaturedStories()
+    };
+  }
 
   constructor(props: StellerAppPageProps) {
     super(props);
@@ -22,18 +25,20 @@ export default class extends React.Component<StellerAppPageProps> {
       <Main>
         <HomePageHead />
         <h2>Tablet Home page</h2>
-        <ul>
-          <li>
-            <Link href="/story?storyId=8hjMuPGmDVn" as="/s/8hjMuPGmDVn">
-              <a>Best Hotels in the World</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/story?storyId=8a6vu9haZcn" as="/s/8a6vu9haZcn">
-              <a>Time to reflect</a>
-            </Link>
-          </li>
-        </ul>
+        {this.props.featuredStories && (
+          <ul>
+            {this.props.featuredStories.map(story => (
+              <li key={story.id}>
+                <Link
+                  href={`/story?storyId=${story.shortId}`}
+                  as={`/s/${story.shortId}`}
+                >
+                  <a>{story.title}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </Main>
     );
   }

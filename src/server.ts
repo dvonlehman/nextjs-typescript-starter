@@ -1,3 +1,4 @@
+import "source-map-support/register";
 process.env.NODE_CONFIG_DIR = __dirname + "/../config/";
 
 import config, { util as configUtil } from "config";

@@ -1,9 +1,9 @@
-import { IStory } from "lib/interfaces";
+import { IFullStory } from "lib/interfaces";
 import Head from "next/head";
 import * as React from "react";
 
 export interface StoryPageHeadProps {
-  story: IStory;
+  story: IFullStory;
 }
 
 function StoryPageHead(props: StoryPageHeadProps): JSX.Element {

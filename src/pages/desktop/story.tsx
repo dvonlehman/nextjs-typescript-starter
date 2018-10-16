@@ -26,8 +26,8 @@ class StoryPage extends React.Component<IStoryProps> {
             <a>Back to home</a>
           </Link>
         </div>
-        <h2>Desktop Story {this.props.storyId}</h2>
-        <p>This is the text for story {this.props.storyId}</p>
+        <h2>{this.props.story.title}</h2>
+        <p>{this.props.story.snippet.text}</p>
       </div>
     );
   }

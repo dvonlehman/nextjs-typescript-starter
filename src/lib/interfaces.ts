@@ -1,16 +1,28 @@
+import { UrlLike } from "next/router";
+
 export interface IStory {
   readonly id: string;
   readonly shortId: string;
   readonly version: number;
+  readonly user: IUser;
   readonly themeId: string;
+  readonly revision: number;
   readonly coverSrc: string;
   readonly coverBg: string;
-  readonly pageCount: number;
   readonly shareUrl: string;
   readonly landscapeShareImage: string;
-  readonly pages: IStoryPage[];
+  readonly pageCount: number;
   readonly title: string;
-  readonly user: IUser;
+  readonly collectionCount: number;
+  readonly commentCount: number;
+  readonly coverSrc320x480: string;
+  readonly coverSrc160x240: string;
+  readonly likes: {
+    readonly count: number;
+    readonly currentUser: boolean;
+  };
+  readonly private: boolean;
+
   readonly snippet: {
     text: string;
     entities: {
@@ -20,19 +32,30 @@ export interface IStory {
       }>;
     };
   };
-  collectionCount: number;
-  commentCount: number;
-  commentingEnabled: boolean;
-  revision: number;
-  coverSrc320x480: string;
-  coverSrc160x240: string;
-  likes: {
-    count: number;
-    currentUser: boolean;
+}
+
+export interface ICompactStory extends IStory {
+  readonly attribution: {
+    readonly collection: {
+      readonly id: string;
+      readonly revision: number;
+      readonly user: IUser;
+      readonly name: string;
+      readonly webName: string;
+      readonly headerImageUrl: UrlLike;
+      readonly headerImageBg: string;
+      readonly followers: number;
+      readonly explicitlyFollowed: boolean;
+      readonly implicityFollowed: boolean;
+      readonly stories: number;
+    };
   };
-  createdAt: number;
-  updatedAt: number;
-  private: boolean;
+}
+
+export interface IFullStory extends IStory {
+  readonly pages: IStoryPage[];
+  readonly createdAt: number;
+  readonly updatedAt: number;
 }
 
 export interface IUser {
@@ -111,8 +134,9 @@ export interface IStoryLayer {
 }
 
 export interface IApi {
-  getStoryById: (storyId: string) => Promise<IStory>;
-  getStoryByShortId: (storyId: string) => Promise<IStory>;
+  getStoryById: (storyId: string) => Promise<IFullStory>;
+  getStoryByShortId: (storyId: string) => Promise<IFullStory>;
+  getFeaturedStories: () => Promise<ICompactStory[]>;
 }
 
 type LoggerMethod = (message: string, meta?: any) => void;
@@ -125,7 +149,7 @@ export interface ILogger {
 }
 
 export interface StellerAppPageProps extends Record<string, any> {
-  deviceFamily: DeviceFamily;
+  featuredStories: ICompactStory[];
 }
 
 export enum DeviceFamily {

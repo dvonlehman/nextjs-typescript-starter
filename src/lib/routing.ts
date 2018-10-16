@@ -1,4 +1,4 @@
-import { IStory } from "lib/interfaces";
+import { IFullStory } from "lib/interfaces";
 import { DefaultQuery, WithRouterProps } from "next/router";
 
 export interface IStoryPageQuery extends DefaultQuery {
@@ -7,5 +7,5 @@ export interface IStoryPageQuery extends DefaultQuery {
 
 export interface IStoryProps extends WithRouterProps<IStoryPageQuery> {
   readonly storyId: string;
-  story: IStory;
+  story: IFullStory;
 }
