@@ -3,7 +3,7 @@
     "outDir": "build",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "jsx": "react",
     "lib": ["dom", "es2017"],
     "module": "commonjs",
@@ -21,5 +21,11 @@
     "src/next.config.js",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ]
+  ],
+  "typeAcquisition": {
+    "enable": true,
+    "include": [
+      "glamor/server"
+    ]
+  }
 }

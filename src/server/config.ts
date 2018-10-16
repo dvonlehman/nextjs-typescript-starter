@@ -1,3 +1,5 @@
+// https://nextjs.org/docs/#exposing-configuration-to-the-server--client-side
+// Settings that are only exposed on the server-side
 export default {
   serverRuntimeConfig: {
     logLevel: "debug",

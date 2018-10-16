@@ -1,4 +1,5 @@
 import { renderStatic } from "glamor/server";
+
 import Document, {
   DefaultDocumentIProps,
   Head,
@@ -8,19 +9,32 @@ import Document, {
   RenderPageResponse
 } from "next/document";
 import * as React from "react";
+import { DeviceFamily } from "../lib/interfaces";
 
-class MyDocument extends Document {
+interface DocumentProps {
+  deviceFamily: DeviceFamily;
+}
+
+class StellerDocument extends Document<DocumentProps> {
   static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps {
     const page: RenderPageResponse = context.renderPage();
     const styles = renderStatic(() => page.html || (page as any).errorHtml);
-    return { ...page, ...styles };
+
+    let deviceFamily: DeviceFamily;
+    if (context.req) {
+      deviceFamily =
+        (context.req.headers["device-family"] as DeviceFamily) ||
+        DeviceFamily.desktop;
+    }
+
+    return { ...page, ...styles, deviceFamily };
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     const { __NEXT_DATA__, ids } = props;
     if (ids) {
-      __NEXT_DATA__.ids = (this.props as any).ids;
+      __NEXT_DATA__.ids = props.ids;
     }
   }
 
@@ -30,6 +44,11 @@ class MyDocument extends Document {
         <Head>
           <style
             dangerouslySetInnerHTML={{ __html: (this.props as any).css }}
+          />
+          <meta
+            id="deviceFamily"
+            name="device-family"
+            content={this.props.deviceFamily}
           />
         </Head>
         <body>
@@ -41,4 +60,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+export default StellerDocument;

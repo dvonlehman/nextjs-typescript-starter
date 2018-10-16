@@ -1,18 +1,13 @@
-import * as camelCaseKeys from "camelcase-keys";
+// For some reason vscode displays warning when importing this module
+const camelCaseKeys = require("camelcase-keys"); // tslint:disable-line
+
+import * as config from "config";
 import * as httpError from "http-errors";
-import getConfig from "next/config";
 import fetch from "node-fetch";
 import { IApi, IGroupLayer, IStory, IStoryLayer } from "../lib/interfaces";
 import log from "./logger";
 
-let API_URL;
-
-function getApiUrl() {
-  if (!API_URL) {
-    API_URL = getConfig().serverRuntimeConfig.printApiUrl;
-  }
-  return API_URL;
-}
+const API_URL = config.get("serverRuntimeConfig.printApiUrl");
 
 function sortByLayerId(layer1: IStoryLayer, layer2: IStoryLayer) {
   return layer1.id - layer2.id;
@@ -38,7 +33,7 @@ function transformStory(rawJson: object): IStory {
 }
 
 async function getStoryById(storyId: string): Promise<IStory> {
-  const url = `${getApiUrl()}/stories/${storyId}`;
+  const url = `${API_URL}/stories/${storyId}`;
   log.debug("Fetching", url);
 
   const resp = await fetch(url);
@@ -53,7 +48,7 @@ async function getStoryById(storyId: string): Promise<IStory> {
 }
 
 async function getStoryByShortId(shortId: string): Promise<IStory> {
-  const url = `${getApiUrl()}/stories?short_id=${shortId}`;
+  const url = `${API_URL}/stories?short_id=${shortId}`;
   log.debug("Fetching", url);
 
   const resp = await fetch(url);

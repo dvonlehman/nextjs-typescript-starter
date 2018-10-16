@@ -1,12 +1,14 @@
-import App, { Container } from "next/app";
+import App, { Container, DefaultAppIProps, NextAppContext } from "next/app";
 import * as React from "react";
 
-export default class CustomApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
+export default class StellerApp extends App {
+  static async getInitialProps(
+    context: NextAppContext
+  ): Promise<DefaultAppIProps> {
+    let pageProps: DefaultAppIProps;
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
+    if (context.Component.getInitialProps) {
+      pageProps = await context.Component.getInitialProps(context.ctx);
     }
 
     return { pageProps };

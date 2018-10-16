@@ -80,3 +80,13 @@ export interface ILogger {
   info: LoggerMethod;
   debug: LoggerMethod;
 }
+
+export interface StellerAppPageProps extends Record<string, any> {
+  deviceFamily: DeviceFamily;
+}
+
+export enum DeviceFamily {
+  phone = "phone",
+  tablet = "tablet",
+  desktop = "desktop"
+}
