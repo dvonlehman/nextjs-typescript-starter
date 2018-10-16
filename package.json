@@ -4,8 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "rm -rf build && tsc && concurrently \"(cd build; NODE_PATH=./ NODE_ENV=development nodemon --watch server.js --watch server --watch config server.js)\" \"tsc --watch\"",
-    "build": "rm -rf build && tsc && (cd build; next build)",
+    "copy-static": "mkdir -p build/static && cp -r static build/",
+    "dev": "rm -rf build && tsc && npm run copy-static && concurrently \"(cd build; NODE_PATH=./ NODE_ENV=development nodemon --watch server.js --watch server --watch config server.js)\" \"tsc --watch\"",
+    "build": "rm -rf build && tsc && (cd build; next build) && npm run copy-static",
     "start": "(cd build; NODE_PATH=./ NODE_ENV=production node server.js)"
   },
   "author": "",

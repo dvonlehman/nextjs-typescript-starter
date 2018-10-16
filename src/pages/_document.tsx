@@ -54,6 +54,7 @@ class StellerDocument extends Document<DocumentProps> {
             name="device-family"
             content={this.props.deviceFamily}
           />
+          <link rel="Shortcut Icon" href="/static/favicon.ico" />
         </Head>
         <body>
           <Main />
