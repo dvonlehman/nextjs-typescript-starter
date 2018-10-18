@@ -1,30 +1,38 @@
+process.env.NODE_CONFIG_DIR = __dirname + "/../config/";
+import "source-map-support/register";
+
+import config, { util as configUtil } from "config";
 import "dotenv";
 import * as express from "express";
 import * as next from "next";
-import routes from "./lib/routes";
+import apiRouter from "server/api-router";
+import log from "server/logger";
+import requestHandler from "server/request-handler";
 import * as nextConfig from "./next.config";
-import apiRouter from "./server/api-router";
-import config from "./server/config";
-import log from "./server/logger";
 
 const port = parseInt(process.env.PORT || "9000", 10);
 const dev = process.env.NODE_ENV !== "production";
 
+const combinedConfig = Object.assign(
+  {},
+  nextConfig,
+  configUtil.toObject(config)
+);
+
 const serverOptions: next.ServerOptions = {
   dev,
-  conf: Object.assign({}, nextConfig, config)
+  conf: combinedConfig
 };
 const nextServer: next.Server = next(serverOptions);
-const nextRequestHandler = routes.getRequestHandler(nextServer);
 
 nextServer.prepare().then(() => {
   const expressServer = express();
 
+  // expressServer.use(database);
   expressServer.use("/api", apiRouter);
-  expressServer.use(nextRequestHandler);
+  expressServer.use(requestHandler(nextServer));
 
-  // expressServer.use(nextRequestHandler);
   expressServer.listen(port, () => {
-    log.info("App listening on port", port);
+    log.info(`App listening on port ${port}`);
   });
 });

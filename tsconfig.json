@@ -3,7 +3,7 @@
     "outDir": "build",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "jsx": "react",
     "lib": ["dom", "es2017"],
     "module": "commonjs",
@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "target": "es5",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "strict": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src/next.config.js",

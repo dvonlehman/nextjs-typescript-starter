@@ -1,75 +1,68 @@
-export interface IStory {
-  readonly id: string;
-  readonly shortId: string;
-  readonly version: number;
-  readonly themeId: string;
-  readonly coverSrc: string;
-  readonly coverBg: string;
-  readonly pageCount: number;
-  readonly shareUrl: string;
-  readonly landscapeShareImage: string;
-  readonly pages: IStoryPage[];
-  readonly title: string;
+export interface ILaureate {
+  id: string;
+  firstname?: string;
+  surname?: string;
+  born: string;
+  died: string;
+  bornCountry?: string;
+  bornCountryCode?: string;
+  bornCity?: string;
+  diedCountry?: string;
+  diedCountryCode?: string;
+  diedCity?: string;
+  gender: string;
+  prizes: Array<{
+    year: string;
+    category: string;
+    share: string;
+    motivation: string;
+    affiliations?: Array<{
+      name: string;
+      city?: string;
+      country?: string;
+    }>;
+  }>;
 }
 
-export interface IStoryPage {
-  readonly templateId: string;
-  readonly templateRev: number;
-  readonly layers: IStoryLayer[];
+export interface ILaureateIPrize extends IPrize {
+  laureateId: string;
+  motivation: string;
 }
 
-// export IPictureLayer extends IStoryLayer {
-
-// }
-export interface ITextColor {
-  color: string;
-  background: string;
+export interface IPrize {
+  year: number;
+  category: PrizeCategory;
+  overallMotivation?: string;
+  laureates: Array<{
+    id: string;
+    firstname: string;
+    surname: string;
+    motivation: string;
+  }>;
 }
 
-export interface IParagraphLayer extends IStoryLayer {
-  text: string;
-  textSize: number;
-  textSizes: ReadonlyArray<number>;
-  textFont: string;
-  textFonts: ReadonlyArray<string>;
-  textAlign: "center" | "left" | "right";
-  color: ITextColor;
-  colors: ReadonlyArray<ITextColor>;
-  lineBreaks: ReadonlyArray<number>;
-  lineHeight: number;
-  lineHeightMultiplier: number;
-  verticalAlignment: "top" | "middle" | "bottom";
-  borderTop: number;
-  borderBottom: number;
-  borderLeft: number;
-  borderRight: number;
-  borderTopColor: string;
-  borderBottomColor: string;
-  borderLeftColor: string;
-  borderRightColor: string;
-  editable: number;
-  movable: number;
-  autoShrink: number;
+export interface IAffiliation {
+  affiliations: IAffiliation[];
 }
 
-export interface IGroupLayer extends IStoryLayer {
-  layers: IStoryLayer[];
+export enum PrizeCategory {
+  peace = "peace",
+  physics = "physics",
+  economics = "economics",
+  medicine = "medicine",
+  literature = "literature",
+  chemistry = "chemistry"
 }
 
-export interface IStoryLayer {
-  id: number;
-  type: "picture" | "paragraph" | "group" | "video" | "form";
-  classes: ReadonlyArray<string>;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  editOrder: number;
+export interface IDatabase {
+  prizesByYear: { [year: string]: IPrize[] };
+  laureatesById: { [key: string]: ILaureate };
 }
 
-export interface IApi {
-  getStoryById: (storyId: string) => Promise<IStory>;
-  getStoryByShortId: (storyId: string) => Promise<IStory>;
+export interface IRepository {
+  getPrizesByYear: (year: string) => Promise<IPrize[]>;
+  getLaureateById: (id: string) => Promise<ILaureate>;
+  getYears: () => Promise<string[]>;
 }
 
 type LoggerMethod = (message: string, meta?: any) => void;

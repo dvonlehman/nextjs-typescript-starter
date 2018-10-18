@@ -1,27 +1,30 @@
 import * as express from "express";
-import api from "./api";
+import repository from "server/repository";
 
 const router = express.Router();
 
-router.get("/stories", async (req, res, next) => {
-  let story;
+router.get("/laureate/:id", async (req, res, next) => {
   try {
-    story = await api.getStoryByShortId(req.query.short_id);
+    res.json(await repository.getLaureateById(req.params.id));
   } catch (err) {
     return next(err);
   }
-
-  res.json(story);
 });
 
-router.get("/stories/:storyId", async (req, res, next) => {
-  let story;
+router.get("/prizes/:year", async (req, res, next) => {
   try {
-    story = await api.getStoryById(req.params.storyId);
+    res.json(await repository.getPrizesByYear(req.params.year));
   } catch (err) {
     return next(err);
   }
-  res.json(story);
+});
+
+router.get("/years", async ({}, res, next) => {
+  try {
+    res.json(await repository.getYears());
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;
