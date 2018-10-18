@@ -23,12 +23,12 @@ const serverOptions: next.ServerOptions = {
   dev,
   conf: combinedConfig
 };
+
 const nextServer: next.Server = next(serverOptions);
 
 nextServer.prepare().then(() => {
   const expressServer = express();
 
-  // expressServer.use(database);
   expressServer.use("/api", apiRouter);
   expressServer.use(requestHandler(nextServer));
 

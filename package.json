@@ -23,6 +23,7 @@
     "lodash-es": "^4.17.11",
     "next": "^7.0.1",
     "node-fetch": "^2.2.0",
+    "query-string": "^6.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "source-map-support": "^0.5.9",

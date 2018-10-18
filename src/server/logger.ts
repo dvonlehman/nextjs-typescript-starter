@@ -1,12 +1,12 @@
+import * as config from "config";
 import * as winston from "winston";
 import { ILogger } from "../lib/interfaces";
-import config from "./config";
 
 // This is the server implementation of the application logger. Just using a lightweight
 // wrapper around a subset of the winston ILogger interface.
 
 const winstonLogger = winston.createLogger({
-  level: config.serverRuntimeConfig.logLevel,
+  level: config.get("serverRuntimeConfig.logLevel"),
   format: winston.format.simple(),
   transports: [new winston.transports.Console()]
 });

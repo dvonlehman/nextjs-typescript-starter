@@ -7,7 +7,8 @@ const nextConfig = {
       config.resolve = {};
     }
 
-    // On the server side alias to the server/api
+    // Server alias overrides. These need to come *before* the general
+    // aliases below that apply to both server and client.
     if (isServer) {
       Object.assign(config.resolve.alias, {
         "lib/repository": __dirname + "/server/repository",

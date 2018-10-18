@@ -23,5 +23,11 @@
     "src/next.config.js",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ]
+  ],
+  "typeAcquisition": {
+    "enable": true,
+    "include": [
+      "glamor/server"
+    ]
+  }
 }
