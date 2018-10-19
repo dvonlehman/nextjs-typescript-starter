@@ -5,6 +5,8 @@ import "dotenv";
 import * as express from "express";
 import routes from "lib/routes";
 import * as next from "next";
+import * as path from "path";
+import * as serveFavicon from "serve-favicon";
 import apiRouter from "server/api-router";
 import log from "server/logger";
 import * as nextConfig from "./next.config";
@@ -30,6 +32,10 @@ const nextRequestHandler = routes.getRequestHandler(nextServer);
 
 nextServer.prepare().then(() => {
   const expressServer = express();
+
+  expressServer.use(
+    serveFavicon(path.join(__dirname, "static", "favicon.ico"))
+  );
 
   expressServer.use("/api", apiRouter);
   expressServer.use(nextRequestHandler);

@@ -8,7 +8,7 @@ import { ILogger } from "./interfaces";
 interface ILogLevel {
   name: string;
   rank: number;
-  fn: (message?: any, ...optionalParams: any[]) => void;
+  fn: (message: string, meta?: any) => void;
 }
 
 const LOG_LEVELS: { [key: string]: ILogLevel } = {
@@ -27,7 +27,12 @@ if (!configuredLogLevel) {
 const print = (logLevel: ILogLevel, message: string, meta: any) => {
   if (logLevel.rank <= configuredLogLevel.rank) {
     const formatted = `[${logLevel.name}] ${message}`;
-    logLevel.fn(formatted, meta);
+
+    if (meta) {
+      logLevel.fn(formatted, meta);
+    } else {
+      logLevel.fn(formatted);
+    }
   }
 };
 
