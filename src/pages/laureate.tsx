@@ -1,9 +1,9 @@
 import repository from "lib/repository";
+import { Link } from "lib/routes";
 import Head from "next/head";
 import { DefaultQuery, withRouter, WithRouterProps } from "next/router";
 import * as React from "react";
 import { ILaureate } from "../lib/interfaces";
-// import { Link } from "../lib/routes";
 
 interface LaureatePageQuery extends DefaultQuery {
   readonly id: string;
@@ -37,6 +37,33 @@ class LaureatePage extends React.Component<LaureatePageProps> {
         <h2>
           {laureate.firstname} {laureate.surname}
         </h2>
+        <ul>
+          {!laureate.born.startsWith("0000") && (
+            <li>
+              <label>Born:</label> {laureate.born} - {laureate.bornCity},{" "}
+              {laureate.bornCountry}
+            </li>
+          )}
+          {!laureate.died.startsWith("0000") && (
+            <li>
+              <label>Died:</label> {laureate.died} - {laureate.diedCity},{" "}
+              {laureate.diedCountry}
+            </li>
+          )}
+        </ul>
+        <h4>Prizes</h4>
+        <ul>
+          {laureate.prizes.map((prize, index) => (
+            <li key={`prize-${index}`}>
+              <Link route="prizes" year={prize.year}>
+                <a>{prize.year}</a>
+              </Link>{" "}
+              <strong>{prize.category}</strong> -{" "}
+              <span>{prize.motivation}</span>
+            </li>
+          ))}
+        </ul>
+        <div />
       </div>
     );
   }

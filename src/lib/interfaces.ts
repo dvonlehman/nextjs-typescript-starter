@@ -54,11 +54,6 @@ export enum PrizeCategory {
   chemistry = "chemistry"
 }
 
-export interface IDatabase {
-  prizesByYear: { [year: string]: IPrize[] };
-  laureatesById: { [key: string]: ILaureate };
-}
-
 export interface IRepository {
   getPrizesByYear: (year: string) => Promise<IPrize[]>;
   getLaureateById: (id: string) => Promise<ILaureate>;

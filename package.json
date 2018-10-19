@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "copy-static": "mkdir -p build/static && cp -r static build/",
-    "dev": "rm -rf build && tsc && npm run copy-static && concurrently \"(cd build; NODE_PATH=./ NODE_ENV=development nodemon --watch server.js --watch server --watch config server.js)\" \"tsc --watch\"",
-    "build": "rm -rf build && tsc && (cd build; next build) && npm run copy-static",
-    "start": "(cd build; NODE_PATH=./ NODE_ENV=production node server.js)",
+    "dev": "rimraf build && npm run copy-static && concurrently \"tsc --watch\" \"delay 5 && (cd build; nodemon --config ../nodemon.json --inspect -r source-map-support/register server.js)\"",
+    "build": "rimraf build && tsc && (cd build; next build) && npm run copy-static",
+    "start": "(cd build; NODE_PATH=./ NODE_ENV=production node -r source-map-support/register server.js)",
     "postinstall": "npm run build"
   },
   "author": "",
@@ -22,6 +22,7 @@
     "glamorous": "^4.13.1",
     "lodash-es": "^4.17.11",
     "next": "^7.0.1",
+    "nextjs-dynamic-routes": "^2.1.9",
     "node-fetch": "^2.2.0",
     "query-string": "^6.2.0",
     "react": "^16.5.2",
@@ -36,8 +37,11 @@
     "@types/lodash-es": "^4.17.1",
     "@types/next": "^7.0.0",
     "concurrently": "^4.0.1",
+    "delay-cli": "^1.1.0",
+    "rimraf": "^2.6.2",
     "source-map-loader": "^0.2.4",
     "ts-node": "^7.0.1",
+    "tsc-watch": "^1.0.30",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.1.1"

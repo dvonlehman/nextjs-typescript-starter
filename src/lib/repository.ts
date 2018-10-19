@@ -12,7 +12,7 @@ const repository: IRepository = {
 };
 
 async function getLaureateById(id: string): Promise<ILaureate> {
-  const url = `/api/laureates/${id}`;
+  const url = `/api/laureate/${id}`;
   log.debug("Fetching laureate by id", { id });
   const resp = await window.fetch(url);
   if (!resp.ok) {

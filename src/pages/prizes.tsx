@@ -1,10 +1,10 @@
-import log from "lib/logger";
+import glamorous from "glamorous";
 import repository from "lib/repository";
+import { Link } from "lib/routes";
 import Head from "next/head";
 import { DefaultQuery, withRouter, WithRouterProps } from "next/router";
 import * as React from "react";
 import { IPrize } from "../lib/interfaces";
-// import { Link } from "../lib/routes";
 
 interface PrizesPageQuery extends DefaultQuery {
   readonly year: string;
@@ -15,16 +15,21 @@ interface PrizesPageProps extends WithRouterProps<PrizesPageQuery> {
   readonly prizes: IPrize[];
 }
 
+const PrizesContainer = glamorous.div({
+  "& ul > li": {
+    marginBottom: "20px"
+  },
+  "& ul > li:last-child": {
+    marginBottom: "0"
+  }
+});
+
 class PrizesPage extends React.Component<PrizesPageProps> {
   static async getInitialProps(context) {
-    try {
-      return {
-        year: context.query.year,
-        prizes: await repository.getPrizesByYear(context.query.year)
-      };
-    } catch (err) {
-      log.error("Error with getInitialProps", { error: err.message });
-    }
+    return {
+      year: context.query.year,
+      prizes: await repository.getPrizesByYear(context.query.year)
+    };
   }
 
   constructor(props: PrizesPageProps) {
@@ -34,13 +39,30 @@ class PrizesPage extends React.Component<PrizesPageProps> {
   render() {
     const { prizes, year } = this.props;
     return (
-      <div>
+      <PrizesContainer>
         <Head>
           <title key="title">Nobel Prizes for {year}</title>
         </Head>
         <h2>Prizes awarded in {year}</h2>
-        <span>{prizes.length}</span>
-      </div>
+        {prizes.map((prize, index) => (
+          <div key={`prize-${index}`}>
+            <h4>{prize.category}</h4>
+            <p>{prize.overallMotivation}</p>
+            <ul>
+              {prize.laureates.map(laureate => (
+                <li key={laureate.id}>
+                  <Link route="laureate" id={laureate.id}>
+                    <a>
+                      {laureate.firstname} {laureate.surname}
+                    </a>
+                  </Link>{" "}
+                  - <span>{laureate.motivation}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </PrizesContainer>
     );
   }
 }

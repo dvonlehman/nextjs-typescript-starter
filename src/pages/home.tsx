@@ -1,12 +1,7 @@
-import glamorous from "glamorous";
 import repository from "lib/repository";
+import { Link } from "lib/routes";
 import Head from "next/head";
-import Link from "next/link";
 import * as React from "react";
-
-const Main = glamorous.div({
-  padding: 50
-});
 
 interface HomePageProps {
   years: string[];
@@ -25,7 +20,7 @@ class HomePage extends React.Component<HomePageProps> {
 
   public render() {
     return (
-      <Main>
+      <div>
         <Head>
           <title key="title">Nobel Prize Demo - Next.js + TypeScript</title>
         </Head>
@@ -35,14 +30,14 @@ class HomePage extends React.Component<HomePageProps> {
           <ul>
             {this.props.years.map(year => (
               <li key={year}>
-                <Link href={`/prizes?year=${year}`} as={`/prizes/${year}`}>
-                  <span>{year}</span>
+                <Link route="prizes" year={year}>
+                  <a>{year}</a>
                 </Link>
               </li>
             ))}
           </ul>
         )}
-      </Main>
+      </div>
     );
   }
 }

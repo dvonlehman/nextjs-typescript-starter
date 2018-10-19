@@ -1,5 +1,5 @@
 import { renderStatic } from "glamor/server";
-
+import glamorous from "glamorous";
 import Document, {
   DefaultDocumentIProps,
   Head,
@@ -9,6 +9,11 @@ import Document, {
   RenderPageResponse
 } from "next/document";
 import * as React from "react";
+
+const Body = glamorous.body({
+  margin: "0px",
+  padding: "0px"
+});
 
 class CustomDocument extends Document<DefaultDocumentIProps> {
   static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps {
@@ -42,10 +47,10 @@ class CustomDocument extends Document<DefaultDocumentIProps> {
             dangerouslySetInnerHTML={{ __html: (this.props as any).css }}
           />
         </Head>
-        <body>
+        <Body>
           <Main />
           <NextScript />
-        </body>
+        </Body>
       </html>
     );
   }
